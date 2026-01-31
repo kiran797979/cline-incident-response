@@ -8,21 +8,24 @@ It demonstrates how enterprise teams can safely use AI to investigate production
 
 ## 🚨 Problem
 
-Modern incident response is slow, manual, and risky.  
-SREs and DevOps engineers must analyze logs, understand recent deployments, decide on corrective actions, and execute fixes under pressure. This leads to:
+Modern incident response is slow, manual, and risky.
+
+Site Reliability Engineers (SREs) and DevOps teams must analyze logs, understand recent deployments, decide on corrective actions, and execute fixes under extreme pressure. This often results in:
 
 - High Mean Time To Repair (MTTR)
-- Risky automation or manual errors
-- Lack of confidence in AI-driven actions
-- Poor auditability and governance
+- Risky automation or manual execution errors
+- Low trust in AI-driven decisions
+- Poor governance and limited auditability
+
+As systems grow more complex, teams need **safe, confidence-aware automation**—not blind auto-fixes.
 
 ---
 
 ## 💡 Solution
 
-Cline solves this by orchestrating **multiple specialized AI agents** using **IBM watsonx Orchestrate**, following real enterprise SRE practices.
+Cline addresses this challenge by orchestrating **multiple specialized AI agents** using **IBM watsonx Orchestrate**, following real-world enterprise SRE practices.
 
-Instead of a single chatbot, the system uses **agentic AI** with clear responsibility boundaries and safety controls.
+Instead of relying on a single chatbot, Cline uses **agentic AI** with clear responsibility boundaries, decision policies, and safety controls. Automation is applied only when confidence is high and actions are proven safe.
 
 ---
 
@@ -37,19 +40,19 @@ Responsibilities:
   - Root cause hypothesis
   - Confidence score (0–1)
   - Ranked remediation options with idempotency metadata
-- Explicitly avoids speculation when inputs are incomplete
+- Explicitly avoids speculation when required inputs are incomplete
 
 ---
 
 ### 🧠 CoordinatorAgent
-Acts as the orchestration and decision layer in **watsonx Orchestrate**.
+Acts as the orchestration and decision layer in **IBM watsonx Orchestrate**.
 
 Decision rules:
 - **Confidence ≥ 0.8** → Auto-remediate (only if action is idempotent)
 - **Confidence 0.5 – 0.79** → Create suggested remediation ticket
 - **Confidence < 0.5** → Escalate to human SRE triage
 
-This ensures automation is fast **only when safe**.
+This ensures automation is fast **only when safe** and mirrors real enterprise operating models.
 
 ---
 
@@ -66,16 +69,17 @@ Responsibilities:
 ## 🔄 Architecture Flow
 
 1. Incident is submitted via **AskOrchestrate**
-2. InvestigatorAgent analyzes and produces structured output
-3. CoordinatorAgent evaluates confidence and policy
-4. RemediationAgent executes approved action (if allowed)
-5. System returns a final audited JSON response
+2. InvestigatorAgent analyzes the incident and produces structured output
+3. CoordinatorAgent evaluates confidence and policy rules
+4. RemediationAgent executes the approved action (if allowed)
+5. System returns a final, audited JSON response
 
 ---
 
 ## 🎬 Demo Modes
 
 ### ✅ Simulated Demo (Recommended)
+
 No external services required.
 
 Steps:
@@ -91,14 +95,15 @@ Steps:
 ---
 
 ### ⚙️ Live Demo (Optional)
-Demonstrates real HTTP execution using a local stub.
+
+Demonstrates real HTTP execution using a local remediation stub.
 
 Run remediation stub:
 ```bash
 cd remediation-stub
 npm install
 npm start
-Expose via ngrok:
+Expose the service:
 
 ngrok http 3000
 Configure RemediationAgent to POST to:
@@ -135,9 +140,9 @@ Low confidence → Immediate human triage
 This mirrors real enterprise SRE decision-making.
 
 📸 Screenshots
-The following screenshots are included to validate system behavior:
+The following screenshots validate system behavior and decision paths:
 
-agents_list.png — Agents defined in watsonx Orchestrate
+agents_list.png — Agents defined in IBM watsonx Orchestrate
 
 scenario_high_confidence.png — Auto-remediation path
 
@@ -152,7 +157,7 @@ Confidence-driven automation
 
 Strong safety and governance controls
 
-Full auditability of actions
+Full auditability of remediation actions
 
 Enterprise-ready agentic AI design
 
