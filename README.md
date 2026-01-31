@@ -1,6 +1,6 @@
-# Cline — Agentic Incident Response (watsonx Orchestrate PoC)
+# Team Cline — Agentic Incident Response (watsonx Orchestrate PoC)
 
-Cline is a proof-of-concept multi-agent incident response system built using **IBM watsonx Orchestrate**.  
+This is a  proof-of-concept multi-agent incident response system built using **IBM watsonx Orchestrate**.  
 It demonstrates how agentic AI can safely investigate incidents, make confidence-based decisions, execute approved remediations, and produce auditable results.
 
 ---
